@@ -148,7 +148,7 @@ public class ImportJobService {
         );
     }
 
-    private ImportJobDetailResponse toDetailResponse(com.datapro.dataimporter.imports.domain.ImportJob job) {
+    public ImportJobDetailResponse toDetailResponse(com.datapro.dataimporter.imports.domain.ImportJob job) {
         return new ImportJobDetailResponse(
                 job.getId(),
                 job.getFileName(),
