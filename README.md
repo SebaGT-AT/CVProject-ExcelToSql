@@ -1,6 +1,6 @@
-# Data Importer Pro
+# Data Importer 
 
-Proyecto profesional orientado a portafolio para importar archivos CSV y XLSX hacia PostgreSQL con validaciones, seguridad JWT, reportes e historial de ejecuciones.
+Proyecto para importar archivos CSV y XLSX hacia PostgreSQL con validaciones, seguridad JWT, reportes e historial de ejecuciones.
 
 ## Stack
 
