@@ -4,6 +4,7 @@ import com.datapro.dataimporter.catalog.repository.CustomerRepository;
 import com.datapro.dataimporter.catalog.repository.EmployeeRepository;
 import com.datapro.dataimporter.catalog.repository.InventoryItemRepository;
 import com.datapro.dataimporter.catalog.repository.ProductRepository;
+import com.datapro.dataimporter.imports.repository.ImportJobRepository;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,8 +43,12 @@ class ImportUploadControllerIntegrationTest {
     @Autowired
     private InventoryItemRepository inventoryItemRepository;
 
+    @Autowired
+    private ImportJobRepository importJobRepository;
+
     @BeforeEach
     void setUp() {
+        importJobRepository.deleteAll();
         inventoryItemRepository.deleteAll();
         employeeRepository.deleteAll();
         customerRepository.deleteAll();

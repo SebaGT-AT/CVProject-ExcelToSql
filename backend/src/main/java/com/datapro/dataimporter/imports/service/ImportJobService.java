@@ -7,10 +7,12 @@ import com.datapro.dataimporter.imports.domain.ImportError;
 import com.datapro.dataimporter.imports.domain.ImportStatus;
 import com.datapro.dataimporter.imports.dto.CreateImportErrorRequest;
 import com.datapro.dataimporter.imports.dto.CreateImportJobRequest;
+import com.datapro.dataimporter.imports.dto.ImportJobFilterCriteria;
 import com.datapro.dataimporter.imports.dto.ImportErrorResponse;
 import com.datapro.dataimporter.imports.dto.ImportJobDetailResponse;
 import com.datapro.dataimporter.imports.dto.ImportJobSummaryResponse;
 import com.datapro.dataimporter.imports.repository.ImportJobRepository;
+import com.datapro.dataimporter.imports.repository.ImportJobSpecifications;
 import com.datapro.dataimporter.security.repository.AppUserRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -67,10 +69,21 @@ public class ImportJobService {
     }
 
     @Transactional(readOnly = true)
-    public PagedResponse<ImportJobSummaryResponse> findAll(int page, int size) {
+    public PagedResponse<ImportJobSummaryResponse> findAll(int page, int size, ImportJobFilterCriteria criteria) {
         var pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        var jobs = importJobRepository.findAll(pageable).map(this::toSummaryResponse);
+        var jobs = importJobRepository.findAll(ImportJobSpecifications.byCriteria(criteria), pageable).map(this::toSummaryResponse);
         return PagedResponse.from(jobs);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ImportJobSummaryResponse> findForReport(ImportJobFilterCriteria criteria) {
+        return importJobRepository.findAll(
+                        ImportJobSpecifications.byCriteria(criteria),
+                        Sort.by(Sort.Direction.DESC, "createdAt")
+                )
+                .stream()
+                .map(this::toSummaryResponse)
+                .toList();
     }
 
     @Transactional(readOnly = true)

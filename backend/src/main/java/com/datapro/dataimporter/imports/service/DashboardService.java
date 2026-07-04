@@ -1,6 +1,8 @@
 package com.datapro.dataimporter.imports.service;
 
+import com.datapro.dataimporter.imports.dto.DashboardEntityMetricResponse;
 import com.datapro.dataimporter.imports.dto.DashboardErrorMetricResponse;
+import com.datapro.dataimporter.imports.dto.DashboardStatusMetricResponse;
 import com.datapro.dataimporter.imports.dto.DashboardSummaryResponse;
 import com.datapro.dataimporter.imports.repository.ImportJobRepository;
 import org.springframework.stereotype.Service;
@@ -37,11 +39,24 @@ public class DashboardService {
                 .map(item -> new DashboardErrorMetricResponse(item.errorType().name(), item.total()))
                 .toList();
 
+        var importsByStatus = importJobRepository.countByStatus()
+                .stream()
+                .map(item -> new DashboardStatusMetricResponse(item.status().name(), item.total()))
+                .toList();
+
+        var importsByEntityType = importJobRepository.countByEntityType()
+                .stream()
+                .map(item -> new DashboardEntityMetricResponse(item.entityType().name(), item.total()))
+                .toList();
+
         return new DashboardSummaryResponse(
                 importsToday,
                 recordsProcessedToday,
                 successRate,
+                Math.round(importJobRepository.averageDurationMs()),
                 topErrors,
+                importsByStatus,
+                importsByEntityType,
                 importJobService.findRecent(5)
         );
     }

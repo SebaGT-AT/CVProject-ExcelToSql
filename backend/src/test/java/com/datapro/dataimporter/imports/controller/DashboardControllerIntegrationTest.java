@@ -87,7 +87,10 @@ class DashboardControllerIntegrationTest {
                 .andExpect(jsonPath("$.data.importsToday").value(1))
                 .andExpect(jsonPath("$.data.recordsProcessedToday").value(5))
                 .andExpect(jsonPath("$.data.successRate").value(60.0))
+                .andExpect(jsonPath("$.data.averageDurationMs").value(1500))
                 .andExpect(jsonPath("$.data.topErrors[0].total").value(1))
+                .andExpect(jsonPath("$.data.importsByStatus[0].status").value("PARTIALLY_COMPLETED"))
+                .andExpect(jsonPath("$.data.importsByEntityType[0].entityType").value("SUPPLIER"))
                 .andExpect(jsonPath("$.data.recentImports[0].fileName").value("proveedores_julio.csv"));
     }
 }

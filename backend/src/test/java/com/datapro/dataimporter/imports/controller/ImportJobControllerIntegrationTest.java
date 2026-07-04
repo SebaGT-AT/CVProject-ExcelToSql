@@ -1,6 +1,8 @@
 package com.datapro.dataimporter.imports.controller;
 
+import com.datapro.dataimporter.imports.repository.ImportJobRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,6 +30,14 @@ class ImportJobControllerIntegrationTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private ImportJobRepository importJobRepository;
+
+    @BeforeEach
+    void setUp() {
+        importJobRepository.deleteAll();
+    }
 
     @Test
     @WithMockUser(username = "operator@datapro.com", roles = {"OPERATOR"})
@@ -67,6 +77,14 @@ class ImportJobControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.content[0].fileName").value("clientes_julio.xlsx"))
                 .andExpect(jsonPath("$.data.content[0].initiatedByName").value("Operator User"));
+
+        mockMvc.perform(get("/api/v1/import-jobs")
+                        .param("entityType", "CUSTOMER")
+                        .param("status", "PARTIALLY_COMPLETED")
+                        .param("fileName", "clientes"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.totalElements").value(1))
+                .andExpect(jsonPath("$.data.content[0].entityType").value("CUSTOMER"));
     }
 
     @Test

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -13,7 +14,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface ImportJobRepository extends JpaRepository<ImportJob, Long> {
+public interface ImportJobRepository extends JpaRepository<ImportJob, Long>, JpaSpecificationExecutor<ImportJob> {
 
     @Override
     @EntityGraph(attributePaths = {"initiatedBy"})
@@ -64,4 +65,26 @@ public interface ImportJobRepository extends JpaRepository<ImportJob, Long> {
             """)
     @EntityGraph(attributePaths = {"initiatedBy"})
     List<ImportJob> findRecentImports(Pageable pageable);
+
+    @Query("""
+            select new com.datapro.dataimporter.imports.repository.StatusCount(ij.status, count(ij))
+            from ImportJob ij
+            group by ij.status
+            order by count(ij) desc
+            """)
+    List<StatusCount> countByStatus();
+
+    @Query("""
+            select new com.datapro.dataimporter.imports.repository.EntityTypeCount(ij.entityType, count(ij))
+            from ImportJob ij
+            group by ij.entityType
+            order by count(ij) desc
+            """)
+    List<EntityTypeCount> countByEntityType();
+
+    @Query("""
+            select coalesce(avg(ij.durationMs), 0)
+            from ImportJob ij
+            """)
+    Double averageDurationMs();
 }

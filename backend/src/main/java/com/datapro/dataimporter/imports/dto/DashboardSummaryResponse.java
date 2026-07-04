@@ -6,7 +6,10 @@ public record DashboardSummaryResponse(
         long importsToday,
         long recordsProcessedToday,
         double successRate,
+        long averageDurationMs,
         List<DashboardErrorMetricResponse> topErrors,
+        List<DashboardStatusMetricResponse> importsByStatus,
+        List<DashboardEntityMetricResponse> importsByEntityType,
         List<ImportJobSummaryResponse> recentImports
 ) {
 }
