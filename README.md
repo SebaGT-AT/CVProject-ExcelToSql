@@ -1,33 +1,92 @@
-# Data Importer 
+# Data Importer Pro
 
-Proyecto para importar archivos CSV y XLSX hacia PostgreSQL con validaciones, seguridad JWT, reportes e historial de ejecuciones.
+Proyecto de portafolio para importar archivos CSV y XLSX hacia PostgreSQL con validaciones, seguridad JWT, historial, dashboard y reportes exportables.
 
 ## Stack
 
-- Backend: Java 21, Spring Boot 3, Spring Security, Spring Data JPA, Hibernate, Maven
+- Backend: Java 21, Spring Boot 3, Spring Security, Spring Data JPA, Hibernate, Flyway, Maven
 - Base de datos: PostgreSQL
 - Frontend: React, Vite, Bootstrap
 - DevOps: Docker, Docker Compose, GitHub Actions
 
+## Funcionalidades actuales
+
+- login con JWT y roles `ADMIN` / `OPERADOR`
+- carga real de archivos CSV y XLSX
+- validacion por tipo de entidad
+- importacion completa, parcial o cancelada por errores criticos
+- historial filtrable de importaciones
+- dashboard con metricas operativas
+- exportacion de reportes en CSV y PDF
+- frontend conectado al backend
+
 ## Estructura
 
-- `backend`: API REST y lógica de negocio
-- `frontend`: interfaz web
+- `backend`: API REST, seguridad, procesamiento de importaciones y migraciones
+- `frontend`: interfaz React conectada a la API
+- `docs`: notas funcionales y formatos esperados
 - `.github/workflows`: pipeline CI
 
-## Etapa actual
+## Variables de entorno principales
 
-Esta primera etapa deja lista la base profesional del proyecto:
+### Backend
 
-- arquitectura backend en capas
-- autenticación JWT inicial
-- documentación Swagger/OpenAPI
-- frontend React base con login, dashboard e importador visual
-- Dockerfiles y `docker-compose.yml`
-- pipeline CI
+- `DB_HOST`
+- `DB_PORT`
+- `DB_NAME`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `JWT_SECRET`
+- `APP_CORS_ALLOWED_ORIGINS`
 
-## Credenciales iniciales
+### Frontend
+
+Usa `frontend/.env.example` como referencia:
+
+- `VITE_API_BASE_URL`
+
+## Credenciales demo
 
 - `admin@datapro.com` / `Admin123!`
 - `operator@datapro.com` / `Operator123!`
 
+Estas credenciales son solo para desarrollo local y demo de portafolio.
+
+## Migraciones
+
+El proyecto usa Flyway. La migracion inicial esta en:
+
+- `backend/src/main/resources/db/migration/V1__initial_schema.sql`
+
+## Formatos de importacion
+
+Los encabezados esperados por entidad estan documentados en:
+
+- `docs/import-formats.md`
+
+## Ejecucion local
+
+### Backend
+
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Docker Compose
+
+```bash
+docker-compose up --build
+```
+
+## Estado del proyecto
+
+El proyecto ya cuenta con una base full stack funcional y esta entrando en etapa de pulido para portfolio.

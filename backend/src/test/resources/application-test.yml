@@ -1,20 +1,25 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:data_importer_test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    url: jdbc:h2:mem:data_importer_test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=true;CASE_INSENSITIVE_IDENTIFIERS=true
     driver-class-name: org.h2.Driver
     username: sa
     password:
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     open-in-view: false
   sql:
     init:
       mode: never
 
 application:
+  cors:
+    allowed-origins: http://localhost:5173
   security:
     jwt:
       secret: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=
       expiration-ms: 86400000
-
