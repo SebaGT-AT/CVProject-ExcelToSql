@@ -1,54 +1,237 @@
 :root {
-  color: #14213d;
-  background: #f4f7fb;
+  color: #16324f;
+  background: #eef3f8;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
   margin: 0;
-  background: #f4f7fb;
+  color: #16324f;
+  background: #eef3f8;
 }
 
-.bg-page {
+.bg-app {
+  background: #eef3f8;
+}
+
+.bg-login {
   background:
-    linear-gradient(135deg, rgba(18, 42, 76, 0.08), rgba(15, 98, 254, 0.08)),
-    #f4f7fb;
+    linear-gradient(140deg, rgba(9, 36, 74, 0.08), rgba(0, 108, 255, 0.08)),
+    #eef3f8;
 }
 
-.auth-shell {
-  max-width: 1120px;
+.login-shell {
+  max-width: 1160px;
   width: 100%;
-  border-radius: 8px;
+  min-height: 720px;
   background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.auth-title {
-  font-size: 2.4rem;
+.login-title {
+  font-size: 2.25rem;
   line-height: 1.1;
 }
 
-.hero-panel {
+.login-hero {
   background:
-    linear-gradient(160deg, rgba(6, 31, 68, 0.92), rgba(14, 78, 146, 0.9)),
-    #14345f;
-  min-height: 520px;
+    linear-gradient(165deg, rgba(6, 29, 67, 0.96), rgba(12, 97, 168, 0.94)),
+    #12355f;
 }
 
-.dashboard-page .panel,
-.metric-card {
-  background: #ffffff;
-  border: 1px solid #dde6f0;
+.hero-chip {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.hero-title {
+  max-width: 560px;
+  font-size: 2.2rem;
+  line-height: 1.1;
+}
+
+.hero-stat {
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.metric-value {
-  font-size: 1.9rem;
+.hero-stat-value {
+  font-size: 1.25rem;
   font-weight: 700;
 }
 
-.upload-zone {
-  min-height: 240px;
-  border: 2px dashed #9eb6d8;
+.hero-stat-label {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+}
+
+.login-hint {
+  border-top: 1px solid #e0e7ef;
+  padding-top: 1rem;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.surface {
+  background: #ffffff;
+  border: 1px solid #d9e3ee;
+  border-radius: 8px;
+}
+
+.metric-number {
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.segmented-control .btn {
+  min-width: 120px;
+}
+
+.upload-dropzone {
+  min-height: 220px;
+  border: 2px dashed #98b5d9;
   border-radius: 8px;
   background: #f8fbff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.upload-file-name {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  color: #4a647c;
+}
+
+.table > :not(caption) > * > * {
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background: #f7faff;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.status-completed {
+  color: #1f6f43;
+  background: #e8f7ee;
+  border-color: #bde4cc;
+}
+
+.status-partially_completed {
+  color: #8a5a09;
+  background: #fff5dc;
+  border-color: #f0d38d;
+}
+
+.status-failed,
+.status-cancelled {
+  color: #8f2131;
+  background: #fdecef;
+  border-color: #efc0c8;
+}
+
+.status-received,
+.status-validating,
+.status-processing {
+  color: #0f4f85;
+  background: #e9f3ff;
+  border-color: #bfd8f8;
+}
+
+.metric-inline {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #e1e8f0;
+  border-radius: 8px;
+  background: #fbfdff;
+  font-size: 0.92rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.detail-item {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #e1e8f0;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.detail-surface {
+  position: sticky;
+  top: 88px;
+}
+
+.error-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.error-row {
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #f1d4d9;
+  border-radius: 8px;
+  background: #fff8f9;
+}
+
+@media (max-width: 991px) {
+  .login-shell {
+    min-height: auto;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .detail-surface {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  .login-title {
+    font-size: 1.8rem;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
 }
